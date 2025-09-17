@@ -1,0 +1,2 @@
+-- Initial Flyway migration placeholder
+-- Add your DDL here, e.g. create tables 
