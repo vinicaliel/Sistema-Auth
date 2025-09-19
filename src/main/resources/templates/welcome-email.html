@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem-vindo ao Sistema de Cadastro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px 10px 0 0;
+            margin: -30px -30px 30px -30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .content {
+            margin-bottom: 30px;
+        }
+        .user-info {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+        }
+        .user-info h3 {
+            margin-top: 0;
+            color: #667eea;
+        }
+        .info-item {
+            margin-bottom: 10px;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #555;
+        }
+        .info-value {
+            color: #333;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .cta-button:hover {
+            opacity: 0.9;
+        }
+        .footer {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+            margin-top: 30px;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎉 Bem-vindo(a) ao Sistema de Cadastro!</h1>
+        </div>
+        
+        <div class="content">
+            <p>Olá <strong th:text="${userName}">Nome do Usuário</strong>!</p>
+            
+            <p>Seja muito bem-vindo(a) ao nosso sistema! Seu cadastro foi realizado com sucesso e agora você tem acesso a todos os recursos da nossa plataforma.</p>
+            
+            <div class="user-info">
+                <h3>📋 Seus Dados de Cadastro</h3>
+                <div class="info-item">
+                    <span class="info-label">Nome:</span>
+                    <span class="info-value" th:text="${userName}">Nome do Usuário</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Email:</span>
+                    <span class="info-value" th:text="${userEmail}">email@exemplo.com</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Tipo de Conta:</span>
+                    <span class="info-value" th:text="${userType}">STUDENT/COMPANY</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Data de Cadastro:</span>
+                    <span class="info-value" th:text="${#temporals.format(#temporals.createNow(), 'dd/MM/yyyy HH:mm')}">Data Atual</span>
+                </div>
+            </div>
+            
+            <p>🎯 <strong>Próximos passos:</strong></p>
+            <ul>
+                <li>Faça login em nossa plataforma</li>
+                <li>Explore os recursos disponíveis</li>
+                <li>Complete seu perfil se necessário</li>
+                <li>Entre em contato conosco se precisar de ajuda</li>
+            </ul>
+            
+            <div style="text-align: center;">
+                <a th:href="${frontendUrl}" class="cta-button">🚀 Acessar Plataforma</a>
+            </div>
+            
+            <div class="warning">
+                <strong>⚠️ Importante:</strong> Se você não se cadastrou em nosso sistema, ignore este email. 
+                Caso tenha dúvidas, entre em contato conosco.
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Este é um email automático, por favor não responda.</p>
+            <p>© 2024 Sistema de Cadastro. Todos os direitos reservados.</p>
+        </div>
+    </div>
+</body>
+</html>

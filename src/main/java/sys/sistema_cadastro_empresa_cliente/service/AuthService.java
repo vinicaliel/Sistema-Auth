@@ -1,6 +1,7 @@
 package sys.sistema_cadastro_empresa_cliente.service;
 
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -20,6 +21,7 @@ public class AuthService {
     private final UserService userService;
     private final JwtUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
+    private final EmailService emailService;
     
     public AuthResponse login(LoginRequest request) {
         try {
@@ -41,13 +43,21 @@ public class AuthService {
                     user.getId()
             );
         } catch (AuthenticationException e) {
-            throw new RuntimeException("Credenciais inválidas");
+            throw new BadCredentialsException("Email ou senha incorretos");
         }
     }
     
     public AuthResponse register(RegisterRequest request) {
         User user = userService.registerUser(request);
         String token = jwtUtil.generateToken(user);
+        
+        // Enviar email de boas-vindas
+        try {
+            emailService.sendWelcomeEmail(user);
+        } catch (Exception e) {
+            // Log do erro mas não falha o registro
+            System.err.println("Erro ao enviar email de boas-vindas: " + e.getMessage());
+        }
         
         return new AuthResponse(
                 token,

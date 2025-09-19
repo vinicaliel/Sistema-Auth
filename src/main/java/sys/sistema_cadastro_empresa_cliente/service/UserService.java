@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import sys.sistema_cadastro_empresa_cliente.dto.RegisterRequest;
 import sys.sistema_cadastro_empresa_cliente.entity.User;
+import sys.sistema_cadastro_empresa_cliente.exception.BusinessException;
+import sys.sistema_cadastro_empresa_cliente.exception.ResourceNotFoundException;
 import sys.sistema_cadastro_empresa_cliente.repository.UserRepository;
 
 @Service
@@ -26,11 +28,11 @@ public class UserService implements UserDetailsService {
     
     public User registerUser(RegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("Email já está em uso");
+            throw new BusinessException("Email já está em uso");
         }
         
         if (userRepository.existsByDocumentNumber(request.getDocumentNumber())) {
-            throw new RuntimeException("Documento já está em uso");
+            throw new BusinessException("Documento já está em uso");
         }
         
         User user = new User();
@@ -47,6 +49,6 @@ public class UserService implements UserDetailsService {
     
     public User findByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado: " + email));
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado: " + email));
     }
 }
